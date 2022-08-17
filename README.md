@@ -1,7 +1,7 @@
 <h1 align="Center"> Minhas Faturas </h1>
 
 ## Descrição do Projeto
-<p align="center">Um projeto em Python de gerenciamento de faturas e contas</p>
+Um projeto em Python de gerenciamento de faturas e contas
 
 ### Futuras features
 
