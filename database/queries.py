@@ -82,6 +82,14 @@ def change_balance(id, value):
   """
   return query
 
+def select_accounts_user(id):
+  query = f"""
+  SELECT    *
+  FROM      account
+  WHERE     account_user={id};
+  """
+  return query
+
 select_user = """
 Select * from user;
 """
@@ -90,5 +98,12 @@ select_last_user = """
 SELECT    *
 FROM      user
 ORDER BY  user_id DESC
+LIMIT     1;
+"""
+
+select_last_accout = """
+SELECT    *
+FROM      account
+ORDER BY  account_id DESC
 LIMIT     1;
 """
