@@ -1,6 +1,9 @@
 import sqlite3
-import queries
-from datetime import datetime
+try:
+  import queries 
+except ImportError:
+  import database.queries as queries
+# from datetime import datetime
 
 def create_db():
   connection = sqlite3.connect('test.db')
@@ -47,3 +50,57 @@ def view_tables():
   
   connection.close()
 
+def view_users():
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute("SELECT * FROM user")
+  rows = cursor.fetchall()
+  for row in rows:
+    print(row)
+  connection.close()
+
+def select_user_name(id):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.select_one_user(id))
+  rows = cursor.fetchall()
+  connection.close()
+  return rows
+
+def create_user(user_name, user_lastname):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.insert_user(user_name,user_lastname,0.0,0.0))
+  connection.commit()
+  cursor.execute(queries.select_last_user)
+  rows = cursor.fetchall()
+  connection.close()
+  return rows
+
+def create_account(bank_name,bank_type,user_id):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.insert_account(bank_name,bank_type,user_id))
+  connection.commit()
+  connection.close()
+
+def new_invoice(details,user_id):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.insert_invoice(details,user_id))
+  connection.commit()
+  connection.close()
+
+def new_item(data,product_name,value,invoice_id):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.insert_itens(data,product_name,value,invoice_id))
+  connection.commit()
+  connection.close()
+
+def change_balance(id,value):
+  connection = sqlite3.connect('test.db')
+  cursor = connection.cursor()
+  cursor.execute(queries.change_balance(id,value))
+  connection.commit()
+  connection.close()

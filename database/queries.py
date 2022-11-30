@@ -68,6 +68,27 @@ def insert_itens(data, name, value, invoice_id):
     """
     return query
 
+def select_one_user(id):
+  query = f"""
+  SELECT * FROM user WHERE user_id='{id}';
+  """
+  return query
+
+def change_balance(id, value):
+  query = f"""
+    UPDATE user
+    SET balance = {value}
+    WHERE user_id='{id}';
+  """
+  return query
+
 select_user = """
 Select * from user;
+"""
+
+select_last_user = """
+SELECT    *
+FROM      user
+ORDER BY  user_id DESC
+LIMIT     1;
 """
