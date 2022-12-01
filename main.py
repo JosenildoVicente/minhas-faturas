@@ -1,7 +1,7 @@
 from operator import truediv
 from sys import flags
 from unicodedata import name
-from database.create_database import select_user_name, view_users, create_user, change_balance, new_account, select_user_accounts
+from database.create_database import select_user_name, view_users, create_user, change_balance, new_account, select_user_accounts, delete_user_account
 
 def create_new_user_option():
     name = input("Escreva seu nome: ")
@@ -31,7 +31,7 @@ def login():
     my_user_revenue = my_user[0][4]
     print(f"Olá, {my_user_name} seu saldo é {my_user_balance} e receita de {my_user_revenue}")
     while True:
-        print('Escolha a opção de acordo com a sua necessidade:\n           01 - Adicionar ao saldo\n           02 - Remover do saldo\n           03 - Adicionar uma nova conta de Banco\n           04 - Visualizar minhas contas\n           99 - Deslogar')
+        print('Escolha a opção de acordo com a sua necessidade:\n           01 - Adicionar ao saldo\n           02 - Remover do saldo\n           03 - Adicionar uma nova conta de Banco\n           04 - Visualizar minhas contas\n           05 - Deletar uma conta\n           99 - Deslogar')
         opt = input("Escolha: ")
         if opt == '01':
             vl = input('Quanto você quer adicionar: ')
@@ -48,6 +48,14 @@ def login():
             my_accounts = select_user_accounts(my_id)
             for count in my_accounts:
                 print(f"Conta id número {count[0]} do banco de nome {count[1]} e tipo de conta {count[2]}")
+        elif opt == '05':
+            bank_name = input('Qual o nome do banco: ')
+            bank_id = input('Qual o id da conta: ')
+            my_accounts = delete_user_account(my_id,bank_name,bank_id)
+            if my_accounts:
+                print(f"Conta no banco {bank_name} com id {bank_id} excluída com sucesso!")
+            else:
+                print(f"Não há contas cadastradas com esses dados!")
         elif opt == '99':
             print("Deslogando...")
             break

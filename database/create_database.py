@@ -118,3 +118,12 @@ def select_user_accounts(user_id):
   rows = cursor.fetchall()
   connection.close()
   return rows
+
+def delete_user_account(user_id,bank_name,bank_id):
+  connection = sqlite3.connect(db_name)
+  cursor = connection.cursor()
+  cursor.execute(queries.delete_account(user_id,bank_id))
+  connection.commit()
+  rows = cursor.rowcount
+  connection.close()
+  return rows

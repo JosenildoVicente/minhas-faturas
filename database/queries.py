@@ -90,6 +90,13 @@ def select_accounts_user(id):
   """
   return query
 
+def delete_account(user_id,account_id):
+  query= f"""
+  DELETE FROM account 
+  WHERE (account_user={user_id} AND account_id={account_id})
+  """
+  return query
+
 select_user = """
 Select * from user;
 """
